@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+    <h1>Welcome, <span id="user-name"></span></h1>
+    <button id="scan-qr">Scan QR</button>
+
+    <div id="qr-reader" style="width: 300px; display: none;"></div>
+
+    <div id="fire-extinguisher-details" style="display: none;">
+        <h2>Fire Extinguisher Details</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Last Service Date</th>
+                <th>Expiry Date</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="ext-id" disabled></td>
+                <td><input type="text" id="ext-type" disabled></td>
+                <td><input type="date" id="ext-service" disabled></td>
+                <td><input type="date" id="ext-expiry" disabled></td>
+            </tr>
+        </table>
+
+        <button id="edit-btn" style="display: none;">Edit</button>
+        <button id="submit-btn" style="display: none;">Submit</button>
+
+        <h2>History</h2>
+        <div id="history"></div>
+    </
+
+
