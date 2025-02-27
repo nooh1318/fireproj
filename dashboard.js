@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     const userData = JSON.parse(localStorage.getItem("loggedInUser"));
-    const firstName = userData.email.split("@")[0]; // Extract first name from email
-    document.getElementById("user-name").textContent = `Welcome, ${firstName}`;
+    if (userData) {
+        const firstName = userData.email.split("@")[0]; // Extract first name from email
+        document.getElementById("user-name").textContent = `Welcome, ${firstName}`;
+    } else {
+        alert("No user logged in. Redirecting to login page.");
+        window.location.href = "index.html";
+    }
 
     const scanBtn = document.getElementById("scan-qr");
     scanBtn.addEventListener("click", function () {
@@ -34,11 +39,17 @@ document.addEventListener("DOMContentLoaded", function () {
             loadHistory(mockData.id);
         }
 
-        new Html5Qrcode("qr-reader").start(
-            { facingMode: "environment" }, 
+        const qrScanner = new Html5Qrcode("qr-reader");
+        qrScanner.start(
+            { facingMode: "environment" },
             { fps: 10, qrbox: 250 },
-            onScanSuccess
-        );
+            onScanSuccess,
+            (errorMessage) => {
+                console.log("Scanning error:", errorMessage);
+            }
+        ).catch(err => {
+            console.log("Camera error:", err);
+        });
     });
 
     document.getElementById("submit-btn").addEventListener("click", function () {
