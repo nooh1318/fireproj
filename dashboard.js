@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     const userData = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (userData) {
+    if (userData && userData.email) {
         const firstName = userData.email.split("@")[0]; // Extract first name from email
         document.getElementById("user-name").textContent = `Welcome, ${firstName}`;
     } else {
         alert("No user logged in. Redirecting to login page.");
         window.location.href = "index.html";
+        return;
     }
 
     const scanBtn = document.getElementById("scan-qr");
@@ -39,17 +40,21 @@ document.addEventListener("DOMContentLoaded", function () {
             loadHistory(mockData.id);
         }
 
-        const qrScanner = new Html5Qrcode("qr-reader");
-        qrScanner.start(
-            { facingMode: "environment" },
-            { fps: 10, qrbox: 250 },
-            onScanSuccess,
-            (errorMessage) => {
-                console.log("Scanning error:", errorMessage);
-            }
-        ).catch(err => {
-            console.log("Camera error:", err);
-        });
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            const qrScanner = new Html5Qrcode("qr-reader");
+            qrScanner.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: 250 },
+                onScanSuccess,
+                (errorMessage) => {
+                    console.log("Scanning error:", errorMessage);
+                }
+            ).catch(err => {
+                console.log("Camera error:", err);
+            });
+        } else {
+            alert("QR scanning only works on mobile devices.");
+        }
     });
 
     document.getElementById("submit-btn").addEventListener("click", function () {
@@ -81,4 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
 
