@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userData = JSON.parse(localStorage.getItem("loggedInUser"));
     if (userData && userData.email) {
         const firstName = userData.email.split("@")[0]; // Extract first name from email
-        document.getElementById("user-name").textContent = `Welcome, ${firstName}`;
+        document.getElementById("user-name").textContent = ` ${firstName}`;
     } else {
         alert("No user logged in. Redirecting to login page.");
         window.location.href = "index.html";
@@ -40,18 +40,25 @@ document.addEventListener("DOMContentLoaded", function () {
             loadHistory(mockData.id);
         }
 
-        if (/Mobi|Android/i.test(navigator.userAgent)) {
-            const qrScanner = new Html5Qrcode("qr-reader");
-            qrScanner.start(
-                { facingMode: "environment" },
-                { fps: 10, qrbox: 250 },
-                onScanSuccess,
-                (errorMessage) => {
-                    console.log("Scanning error:", errorMessage);
-                }
-            ).catch(err => {
-                console.log("Camera error:", err);
-            });
+        if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                .then(() => {
+                    const qrScanner = new Html5Qrcode("qr-reader");
+                    qrScanner.start(
+                        { facingMode: "environment" },
+                        { fps: 10, qrbox: 250 },
+                        onScanSuccess,
+                        (errorMessage) => {
+                            console.log("Scanning error:", errorMessage);
+                        }
+                    ).catch(err => {
+                        console.log("Camera error:", err);
+                    });
+                })
+                .catch(err => {
+                    alert("Camera access denied. Please enable it in browser settings.");
+                    console.log("Camera access error:", err);
+                });
         } else {
             alert("QR scanning only works on mobile devices.");
         }
