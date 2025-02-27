@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userData = JSON.parse(localStorage.getItem("loggedInUser"));
     if (userData && userData.email) {
         const firstName = userData.email.split("@")[0]; // Extract first name from email
-        document.getElementById("user-name").textContent = ` ${firstName}`;
+        document.getElementById("user-name").textContent = `Welcome, ${firstName}`;
     } else {
         alert("No user logged in. Redirecting to login page.");
         window.location.href = "index.html";
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         function onScanSuccess(decodedText) {
             alert("QR Code Scanned: " + decodedText);
             document.getElementById("qr-reader").style.display = "none";
+            qrScanner.stop(); // Stop the camera after successful scan
 
             // Simulated Data (Replace with actual scanned data)
             const mockData = {
@@ -42,8 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
             navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-                .then(() => {
+                .then((stream) => {
+                    document.getElementById("qr-reader").style.display = "block";
                     const qrScanner = new Html5Qrcode("qr-reader");
+
                     qrScanner.start(
                         { facingMode: "environment" },
                         { fps: 10, qrbox: 250 },
@@ -52,11 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             console.log("Scanning error:", errorMessage);
                         }
                     ).catch(err => {
+                        alert("Camera is blocked. Please enable it in browser settings and check no other apps are using the camera.");
                         console.log("Camera error:", err);
                     });
                 })
                 .catch(err => {
-                    alert("Camera access denied. Please enable it in browser settings.");
+                    alert("Camera access is blocked. Try using a different browser or check settings.");
                     console.log("Camera access error:", err);
                 });
         } else {
