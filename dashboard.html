@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <!-- Specific version of the library -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 </head>
 <body>
     <h1>Welcome, <span id="user-name"></span></h1>
     <button id="scan-qr">Scan QR</button>
 
-    <div id="qr-reader" style="width: 300px; display: none;"></div>
+    <!-- QR Scanner elements -->
+    <div id="qr-reader" style="display: none;"></div>
+    <button id="stop-scan" style="display: none;">Stop Scanner</button>
+    <div id="camera-error" style="color: red; display: none;"></div>
 
     <div id="fire-extinguisher-details" style="display: none;">
         <h2>Fire Extinguisher Details</h2>
@@ -40,6 +43,3 @@
     <script src="dashboard.js"></script>
 </body>
 </html>
-
-
-
