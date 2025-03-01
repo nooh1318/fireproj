@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("login-form");
     const signupForm = document.getElementById("signup-form");
+    const roleSelect = document.getElementById("signup-role");
+    const managerSecretField = document.getElementById("manager-secret-field");
 
     // 🔹 Only accept @nokia.com emails
     function isValidNokiaEmail(email) {
@@ -33,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             const email = document.getElementById("signup-email").value;
             const password = document.getElementById("signup-password").value;
-            const role = document.getElementById("signup-role").value;
+            const role = roleSelect.value;
             const secretKeyInput = document.getElementById("manager-secret-key");
 
             if (!isValidNokiaEmail(email)) {
@@ -42,8 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // 🔹 Manager Verification with Secret Key
-            const MANAGER_SECRET_KEY = "Nokia123"; // 🔒 Change this key for security
-            if (role === "Manager") {
+            const MANAGER_SECRET_KEY = "Nokia123"; // Change this to a real secure key
+            if (role === "manager") {
                 if (!secretKeyInput) {
                     alert("Secret key input not found.");
                     return;
@@ -55,20 +57,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
-            // Save user details
+            // Store user details
             localStorage.setItem(email, JSON.stringify({ email, password, role }));
             alert("Account created! Please log in.");
             window.location.href = "index.html";
         });
 
         // 🔹 Show/Hide Secret Key Field for Manager Role
-        document.getElementById("signup-role").addEventListener("change", function () {
-            const secretKeyField = document.getElementById("manager-secret-field");
-            if (this.value === "Manager") {
-                secretKeyField.style.display = "block";
-            } else {
-                secretKeyField.style.display = "none";
-            }
+        roleSelect.addEventListener("change", function () {
+            managerSecretField.style.display = (this.value === "manager") ? "block" : "none";
         });
     }
 });
