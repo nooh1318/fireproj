@@ -11,7 +11,7 @@
         <h2>Sign Up</h2>
         <form id="signup-form">
             <label>Email:</label>
-            <input type="email" id="signup-email" required>
+            <input type="email" id="signup-email" required placeholder="example@nokia.com">
             
             <label>Password:</label>
             <input type="password" id="signup-password" required>
@@ -21,6 +21,12 @@
                 <option value="user">User</option>
                 <option value="manager">Manager</option>
             </select>
+
+            <!-- 🔹 Secret Key Field (Only for Managers) -->
+            <div id="manager-secret-field" style="display: none;">
+                <label>Manager Secret Key:</label>
+                <input type="password" id="manager-secret-key" placeholder="Enter Manager Secret Key">
+            </div>
 
             <button type="submit">Sign Up</button>
         </form>
