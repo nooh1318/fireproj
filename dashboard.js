@@ -34,9 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Toggle Navbar on Mobile
-    menuIcon.addEventListener("click", function () {
-        navbar.classList.toggle("show");
-    });
+    if (menuIcon) {
+        menuIcon.addEventListener("click", function () {
+            navbar.classList.toggle("show");
+        });
+    }
 
     const scanBtn = document.getElementById("scan-qr");
     const uploadBtn = document.getElementById("upload-qr");
