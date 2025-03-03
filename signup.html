@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="navigation-buttons">
+        <button id="home-btn" class="nav-btn">Home</button>
+        <div class="nav-controls">
+            <button id="prev-btn" class="nav-btn">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+    </div>
+
     <div id="signup-container">
         <h2>Sign Up</h2>
         <form id="signup-form">
@@ -22,7 +30,7 @@
                 <option value="manager">Manager</option>
             </select>
 
-            <!-- 🔹 Manager Secret Key Field (Hidden by Default) -->
+            <!-- Manager Secret Key Field -->
             <div id="manager-secret-field" style="display: none;">
                 <label>Manager Secret Key:</label>
                 <input type="password" id="manager-secret-key" placeholder="Enter Manager Secret Key">
@@ -35,4 +43,3 @@
     <script src="auth.js"></script>
 </body>
 </html>
-
