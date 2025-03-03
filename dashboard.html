@@ -6,6 +6,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"></script>
 </head>
 <body>
     <div class="navigation-buttons">
@@ -22,12 +23,10 @@
         <button id="upload-qr" class="scan-button">Upload QR Code</button>
     </div>
 
-    <!-- QR Scanner elements -->
     <div id="qr-reader" style="display: none;"></div>
     <button id="stop-scan" style="display: none;">Stop Scanner</button>
     <div id="camera-error" style="color: red; display: none;"></div>
 
-    <!-- Selection options after scanning -->
     <div id="scan-options" style="display: none;">
         <button id="inspection-btn">Inspection</button>
         <button id="report-btn">Report</button>
