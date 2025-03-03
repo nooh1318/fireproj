@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+</head>
+<body>
+    <div class="navigation-buttons">
+        <button id="home-btn" class="nav-btn">Home</button>
+        <div class="nav-controls">
+            <button id="prev-btn" class="nav-btn">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+    </div>
+
+    <div id="dashboard-container">
+        <h1>Welcome, <span id="user-name"></span></h1>
+        <button id="scan-qr" class="scan-button">Scan QR</button>
+        <button id="upload-qr" class="scan-button">Upload QR Code</button>
+    </div>
+
+    <div id="qr-reader" style="display: none;"></div>
+    
+    <div id="scan-options" style="display: none; gap: 20px; justify-content: center; margin-top: 20px;">
+        <button id="inspection-btn" class="nav-btn">Inspection</button>
+        <button id="report-btn" class="nav-btn">Report</button>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
