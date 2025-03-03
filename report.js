@@ -1,34 +1,29 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const extData = JSON.parse(localStorage.getItem("currentExtinguisher"));
+document.addEventListener("DOMContentLoaded", () => {
+    const inspectionData = JSON.parse(localStorage.getItem("inspectionDetails"));
     const reportTable = document.getElementById("report-table");
 
-    if (extData) {
-        const tableContent = `
+    if (inspectionData) {
+        reportTable.innerHTML = `
             <tr>
-                <th>Fire Extinguisher S.No</th>
-                <td>${extData.id}</td>
+                <th>S.No</th><td>${inspectionData.id}</td>
+                <th>Location</th><td>${inspectionData.location}</td>
+                <th>Type</th><td>${inspectionData.type}</td>
             </tr>
             <tr>
-                <th>Location</th>
-                <td>${extData.location}</td>
+                <th>Weight</th><td>${inspectionData.weight} kg</td>
+                <th>Manufacturing Date</th><td>${inspectionData.serviceDate}</td>
+                <th>HPT Date</th><td>${inspectionData.hptDate}</td>
             </tr>
             <tr>
-                <th>Type of Fire Extinguisher</th>
-                <td>${extData.type}</td>
+                <th>Last Inspection</th><td>${inspectionData.inspectionDate}</td>
+                <th>Next Due</th><td>${inspectionData.inspectionDueDate}</td>
+                <th>Inspected By</th><td>${inspectionData.inspectedBy}</td>
             </tr>
             <tr>
-                <th>Weight in Kg</th>
-                <td>${extData.weight}</td>
-            </tr>
-            <tr>
-                <th>Manufacturing / Refilling Date</th>
-                <td>${extData.serviceDate}</td>
-            </tr>
-            <tr>
-                <th>HPT Date</th>
-                <td>${extData.hptDate}</td>
+                <td colspan="6">
+                    <button onclick="window.location.href='inspection.html'">View Full Checklist</button>
+                </td>
             </tr>
         `;
-        reportTable.innerHTML = tableContent;
     }
 });
