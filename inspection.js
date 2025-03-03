@@ -25,6 +25,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("inspection-time").textContent = new Date().toLocaleTimeString();
 
+    // Function to download inspection as Excel
+    function downloadInspectionAsExcel(inspection) {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "S.No,Location,Type,Weight,Manufacturing Date,HPT Date,Inspected By,Inspection Date,Inspection Due Date\n";
+        csvContent += `${inspection.id},${inspection.location},${inspection.type},${inspection.weight},${inspection.serviceDate},${inspection.hptDate},${inspection.inspectedBy},${inspection.inspectionDate},${inspection.inspectionDueDate}\n`;
+        
+        csvContent += "\nChecklist:\n";
+        csvContent += "Check No,Status,Remarks\n";
+        inspection.checklist.forEach((item, index) => {
+            csvContent += `${index + 1},${item.status},${item.remarks}\n`;
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `Inspection_${inspection.id}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     // Save handler
     document.getElementById("save-inspection-btn").addEventListener("click", () => {
         const newInspection = {
@@ -50,6 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("inspectionRecords", JSON.stringify(savedInspections));
         localStorage.setItem("selectedReportId", extData.id); // Ensure the correct report ID is stored
         alert("Inspection saved successfully!");
+
+        // Download the inspection as an Excel file
+        downloadInspectionAsExcel(newInspection);
         
         // Redirect back to dashboard where Inspection & Report buttons are available
         window.location.href = "dashboard.html";
@@ -61,11 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("prev-btn").addEventListener("click", () => {
-        window.location.href = "dashboard.html";
+        window.history.back();
     });
 
     document.getElementById("next-btn").addEventListener("click", () => {
-        
+        window.history.forward();
     });
 
     // Report button functionality
