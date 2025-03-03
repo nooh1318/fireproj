@@ -85,4 +85,14 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("report-btn").addEventListener("click", () => {
         window.location.href = "report.html";
     });
+    
+    document.getElementById("prev-btn").addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+    
+    document.getElementById("next-btn").addEventListener("click", () => {
+        window.location.href = "report.html";
+    });
+
+
 });
