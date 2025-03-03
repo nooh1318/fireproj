@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const homeBtn = document.getElementById("home-btn");
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
+    const menuIcon = document.getElementById("menu-icon");
+    const navbar = document.querySelector(".navbar");
 
     if (homeBtn) {
         homeBtn.addEventListener("click", function () {
@@ -30,6 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
             window.history.forward();
         });
     }
+
+    // Toggle Navbar on Mobile
+    menuIcon.addEventListener("click", function () {
+        navbar.classList.toggle("show");
+    });
 
     const scanBtn = document.getElementById("scan-qr");
     const uploadBtn = document.getElementById("upload-qr");
