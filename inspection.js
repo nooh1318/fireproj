@@ -25,6 +25,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("inspection-time").textContent = new Date().toLocaleTimeString();
 
+    // Function to validate form before saving
+    function validateForm() {
+        const inspectedBy = document.getElementById("inspected-by").value.trim();
+        const inspectionDate = document.getElementById("inspection-date").value.trim();
+        const inspectionDueDate = document.getElementById("inspection-due-date").value.trim();
+        let isChecklistFilled = false;
+        
+        Array.from({ length: 7 }, (_, i) => {
+            if (document.querySelector(`input[name="check${i + 1}"]:checked`)) {
+                isChecklistFilled = true;
+            }
+        });
+
+        if (!inspectedBy || !inspectionDate || !inspectionDueDate || !isChecklistFilled) {
+            alert("You're trying to save an empty form. Please fill in the required fields.");
+            return false;
+        }
+        return true;
+    }
+
     // Function to download inspection as Excel
     function downloadInspectionAsExcel(inspection) {
         let csvContent = "data:text/csv;charset=utf-8,";
@@ -48,6 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Save handler
     document.getElementById("save-inspection-btn").addEventListener("click", () => {
+        if (!validateForm()) return;
+        
         const newInspection = {
             id: extData.id,
             location: extData.location,
