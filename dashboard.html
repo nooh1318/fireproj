@@ -4,42 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- Add your CSS link here -->
     <link rel="stylesheet" href="styles.css">
-    <!-- QR Scanner Library -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 </head>
 <body>
-    <h1>Welcome, <span id="user-name"></span></h1>
-    <button id="scan-qr">Scan QR</button>
+    <div class="navigation-buttons">
+        <button id="home-btn" class="nav-btn">Home</button>
+        <div class="nav-controls">
+            <button id="prev-btn" class="nav-btn">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+    </div>
 
-    <!-- QR Scanner elements -->
+    <div id="dashboard-container">
+        <h1>Welcome, <span id="user-name"></span></h1>
+        <button id="scan-qr" class="scan-button">Scan QR</button>
+        <button id="upload-qr" class="scan-button">Upload QR Code</button>
+    </div>
+
     <div id="qr-reader" style="display: none;"></div>
-    <button id="stop-scan" style="display: none;">Stop Scanner</button>
-    <div id="camera-error" style="color: red; display: none;"></div>
-
-    <div id="fire-extinguisher-details" style="display: none;">
-        <h2>Fire Extinguisher Details</h2>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Type</th>
-                <th>Last Service Date</th>
-                <th>Expiry Date</th>
-            </tr>
-            <tr>
-                <td><input type="text" id="ext-id" disabled></td>
-                <td><input type="text" id="ext-type" disabled></td>
-                <td><input type="date" id="ext-service" disabled></td>
-                <td><input type="date" id="ext-expiry" disabled></td>
-            </tr>
-        </table>
-
-        <button id="edit-btn" style="display: none;">Edit</button>
-        <button id="submit-btn" style="display: none;">Submit</button>
-
-        <h2>History</h2>
-        <div id="history"></div>
+    
+    <div id="scan-options" style="display: none; gap: 20px; justify-content: center; margin-top: 20px;">
+        <button id="inspection-btn" class="nav-btn">Inspection</button>
+        <button id="report-btn" class="nav-btn">Report</button>
     </div>
 
     <script src="dashboard.js"></script>

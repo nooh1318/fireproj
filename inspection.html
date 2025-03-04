@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspection</title>
+    <link rel="stylesheet" href= "styles.css">
+</head>
+<body>
+    <div class="navigation-buttons">
+        <button id="home-btn" class="nav-btn">Home</button>
+        <div class="nav-controls">
+            <button id="prev-btn" class="nav-btn">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+    </div>
+
+    <div id="inspection-container">
+        <h2>Fire Extinguisher Inspection</h2>
+        <table id="inspection-table">
+            <tr>
+                <th>Fire Extinguisher S.No</th>
+                <td id="ext-id"></td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td id="ext-location"></td>
+            </tr>
+            <tr>
+                <th>Type of Fire Extinguisher</th>
+                <td id="ext-type"></td>
+            </tr>
+            <tr>
+                <th>Weight in Kg</th>
+                <td id="ext-weight"></td>
+            </tr>
+            <tr>
+                <th>Manufacturing / Refilling Date</th>
+                <td id="ext-serviceDate"></td>
+            </tr>
+            <tr>
+                <th>HPT Date</th>
+                <td id="ext-hptDate"></td>
+            </tr>
+            <tr>
+                <th>Inspected By</th>
+                <td><input type="text" id="inspected-by"></td>
+            </tr>
+            <tr>
+                <th>Inspection Done on</th>
+                <td><input type="date" id="inspection-date"></td>
+            </tr>
+            <tr>
+                <th>Inspection Due Date</th>
+                <td><input type="date" id="inspection-due-date"></td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td id="inspection-time"></td>
+            </tr>
+        </table>
+
+        <h3>Checklist</h3>
+        <table id="checklist-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Checklist</th>
+                    <th>Yes</th>
+                    <th>No</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Located in Designated Place</td>
+                    <td><input type="radio" name="check1" value="yes"></td>
+                    <td><input type="radio" name="check1" value="no"></td>
+                    <td><input type="text" id="remarks1"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Readily Visible not obstructed</td>
+                    <td><input type="radio" name="check2" value="yes"></td>
+                    <td><input type="radio" name="check2" value="no"></td>
+                    <td><input type="text" id="remarks2"></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Fire extinguisher is in good condition.</td>
+                    <td><input type="radio" name="check3" value="yes"></td>
+                    <td><input type="radio" name="check3" value="no"></td>
+                    <td><input type="text" id="remarks3"></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Inspect tamper seal and safety pin ( which holds safety pin inplace )</td>
+                    <td><input type="radio" name="check4" value="yes"></td>
+                    <td><input type="radio" name="check4" value="no"></td>
+                    <td><input type="text" id="remarks4"></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Check pressure gauge ( if green its good for use , red- overcharged, and yellow – low charged)</td>
+                    <td><input type="radio" name="check5" value="yes"></td>
+                    <td><input type="radio" name="check5" value="no"></td>
+                    <td><input type="text" id="remarks5"></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Check fire extinguisher body for any corrosion/physical damage</td>
+                    <td><input type="radio" name="check6" value="yes"></td>
+                    <td><input type="radio" name="check6" value="no"></td>
+                    <td><input type="text" id="remarks6"></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Inspect hose and nozzle for any defects</td>
+                    <td><input type="radio" name="check7" value="yes"></td>
+                    <td><input type="radio" name="check7" value="no"></td>
+                    <td><input type="text" id="remarks7"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button id="save-inspection-btn">Save Inspection</button>
+    </div>
+
+    <script src="inspection.js"></script>
+</body>
+</html>

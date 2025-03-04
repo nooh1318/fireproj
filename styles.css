@@ -7,22 +7,24 @@ body {
     padding: 0;
 }
 
-/* Header */
 h1, h2 {
     color: #333;
 }
 
-/* Container Styling */
-#auth-container, #signup-container {
-    width: 350px;
-    margin: 50px auto;
+#auth-container, #signup-container, #dashboard-container, #inspection-container, #report-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto;
     padding: 20px;
     background: white;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
-/* Forms */
+#dashboard-container {
+    max-width: 500px;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -43,51 +45,51 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    margin: 5px;
+    background-color: #007bff;
+    color: white;
 }
 
 button:hover {
     opacity: 0.8;
 }
 
-/* Login and Sign-Up Buttons */
-button {
-    background-color: #007bff;
-    color: white;
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-/* Scan QR Button */
-#scan-qr {
-    background-color: #28a745;
-    color: white;
-    padding: 15px;
-    margin-top: 20px;
-    font-size: 18px;
+.nav-btn {
+    background-color: #007bff7d;
 }
 
-/* Fire Extinguisher Details */
-#fire-extinguisher-details {
-    margin-top: 20px;
-    padding: 15px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.scan-button {
+    width: 100%;
+    max-width: 250px;
+    height: 60px;
+    margin: 15px auto;
+    font-size: 16px;
 }
 
-/* Table Styles */
+/* Table Styling */
 table {
-    width: 80%;
-    margin: 20px auto;
+    width: 100%;
     border-collapse: collapse;
-    background: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+    margin: 20px 0;
+    background: #f8f9fa;
+    border-radius: 8px;
     overflow: hidden;
 }
 
 th, td {
-    padding: 10px;
+    padding: 12px;
+    text-align: left;
     border: 1px solid #ddd;
-    text-align: center;
+    font-size: 16px;
+    word-wrap: break-word;
 }
 
 th {
@@ -95,23 +97,77 @@ th {
     color: white;
 }
 
-/* Edit & Submit Buttons */
-#edit-btn {
-    background-color: #ffc107;
-    color: black;
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-#submit-btn {
-    background-color: #dc3545;
+.radio-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* Input Fields */
+input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Radio Buttons */
+input[type="radio"] {
+    transform: scale(1.2);
+    margin: 5px;
+}
+
+/* Save Button */
+#save-inspection-btn {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #28a745;
     color: white;
 }
 
-/* History Section */
-#history {
-    margin: 20px auto;
-    padding: 15px;
-    width: 80%;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+#save-inspection-btn:hover {
+    background-color: #218838;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #inspection-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th, td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    input[type="text"], input[type="date"] {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+

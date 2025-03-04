@@ -1,104 +1,98 @@
 document.addEventListener("DOMContentLoaded", function () {
     const userData = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (userData && userData.email) {
-        const firstName = userData.email.split("@")[0];
-        document.getElementById("user-name").textContent = ` ${firstName}`;
-    } else {
+    if (!userData) {
         alert("No user logged in. Redirecting to login page.");
         window.location.href = "index.html";
         return;
     }
 
-    const scanBtn = document.getElementById("scan-qr");
+    document.getElementById("user-name").textContent = userData.email.split("@")[0];
+
+    // QR Scanner Setup
     let qrScanner = null;
+    const scanOptions = document.getElementById("scan-options");
 
-    scanBtn.addEventListener("click", async function () {
+    document.getElementById("scan-qr").addEventListener("click", async () => {
         try {
-            document.getElementById("qr-reader").style.display = "block";
-            
-            // Initialize scanner only once
-            if (!qrScanner) {
-                qrScanner = new Html5Qrcode("qr-reader");
-            }
-
-            // Start scanning directly with Html5Qrcode's built-in camera handling
+            qrScanner = new Html5Qrcode("qr-reader");
             await qrScanner.start(
                 { facingMode: "environment" },
                 { fps: 10, qrbox: 250 },
                 (decodedText) => {
-                    handleScanSuccess(decodedText, qrScanner);
+                    handleScanSuccess(decodedText);
+                    qrScanner.stop();
                 },
-                (errorMessage) => {
-                    console.log("Scanning error:", errorMessage);
-                }
+                (error) => console.error("QR Scan Error:", error)
             );
+            document.getElementById("qr-reader").style.display = "block";
         } catch (err) {
-            document.getElementById("qr-reader").style.display = "none";
-            if (qrScanner && qrScanner.isScanning) {
-                qrScanner.stop();
-            }
-            alert(`Camera error: ${err.message}`);
-            console.log("Camera access error:", err);
+            alert(`Camera Error: ${err.message}`);
         }
     });
 
-    function handleScanSuccess(decodedText, scanner) {
-        alert("QR Code Scanned: " + decodedText);
-        scanner.stop();
-        document.getElementById("qr-reader").style.display = "none";
+    document.getElementById("upload-qr").addEventListener("click", () => {
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/png, image/jpeg";
+        fileInput.onchange = (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    const ctx = canvas.getContext("2d");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+                    if (code) handleScanSuccess(code.data);
+                    else alert("No QR code found");
+                };
+            };
+            reader.readAsDataURL(file);
+        };
+        fileInput.click();
+    });
 
-        const mockData = {
-            id: decodedText,
-            type: "CO2",
-            serviceDate: "2025-01-10",
-            expiryDate: "2026-01-10"
+    function handleScanSuccess(decodedText) {
+        const qrData = {};
+        decodedText.split("\n").forEach(line => {
+            const [key, value] = line.split(": ");
+            if(key && value) qrData[key.trim()] = value.trim();
+        });
+
+        const extinguisherData = {
+            id: qrData["S.No"] || "N/A",
+            type: qrData["Type of Fire Extinguisher"] || "ABC",
+            location: qrData.Location || "Reception",
+            weight: qrData["Weight in Kg"] || "6",
+            serviceDate: qrData["Manufacturing / Refilling Date"] || "2024-06-06",
+            hptDate: qrData["HPT Date"] || "2027-06-05"
         };
 
-        document.getElementById("fire-extinguisher-details").style.display = "block";
-        document.getElementById("ext-id").value = mockData.id;
-        document.getElementById("ext-type").value = mockData.type;
-        document.getElementById("ext-service").value = mockData.serviceDate;
-        document.getElementById("ext-expiry").value = mockData.expiryDate;
-
-        if (userData.role === "manager") {
-            document.getElementById("edit-btn").style.display = "inline";
-            document.getElementById("submit-btn").style.display = "inline";
-        }
-
-        loadHistory(mockData.id);
+        localStorage.setItem("currentExtinguisher", JSON.stringify(extinguisherData));
+        scanOptions.style.display = "flex";
     }
 
-    // Rest of your existing code for submit button and history...
-    document.getElementById("submit-btn").addEventListener("click", function () {
-        const history = JSON.parse(localStorage.getItem("history")) || [];
-        history.push({
-            id: document.getElementById("ext-id").value,
-            type: document.getElementById("ext-type").value,
-            serviceDate: document.getElementById("ext-service").value,
-            expiryDate: document.getElementById("ext-expiry").value,
-            timestamp: new Date().toLocaleString()
-        });
-
-        localStorage.setItem("history", JSON.stringify(history));
-        alert("Changes saved.");
-        loadHistory(document.getElementById("ext-id").value);
+    document.getElementById("inspection-btn").addEventListener("click", () => {
+        if (userData.role === "manager") window.location.href = "inspection.html";
+        else alert("Only managers can perform inspections");
     });
 
-    function loadHistory(extinguisherId) {
-        const historyDiv = document.getElementById("history");
-        historyDiv.innerHTML = "";
-        const history = JSON.parse(localStorage.getItem("history")) || [];
+    document.getElementById("report-btn").addEventListener("click", () => {
+        window.location.href = "report.html";
+    });
+    
+    document.getElementById("prev-btn").addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+    
+    document.getElementById("next-btn").addEventListener("click", () => {
+        window.location.href = "report.html";
+    });
 
-        history.forEach(entry => {
-            if (entry.id === extinguisherId) {
-                const p = document.createElement("p");
-                p.textContent = `ID: ${entry.id}, Type: ${entry.type}, Service: ${entry.serviceDate}, Expiry: ${entry.expiryDate}, Time: ${entry.timestamp}`;
-                historyDiv.appendChild(p);
-            }
-        });
-    }
+
 });
-
-
-
-

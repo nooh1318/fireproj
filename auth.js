@@ -68,7 +68,27 @@ document.addEventListener("DOMContentLoaded", function () {
             managerSecretField.style.display = (this.value === "manager") ? "block" : "none";
         });
     }
+
+    // Add navigation buttons functionality if they exist
+    const homeBtn = document.getElementById("home-btn");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    if (homeBtn) {
+        homeBtn.addEventListener("click", function() {
+            window.location.href = "dashboard.html";
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener("click", function() {
+            window.history.back();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener("click", function() {
+            window.history.forward();
+        });
+    }
 });
-
-
-
