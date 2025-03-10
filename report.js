@@ -3,6 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedInspections = JSON.parse(localStorage.getItem("inspectionRecords")) || {};
     const reportTable = document.getElementById("report-table");
 
+    // Checklist Titles from the Form
+    const checklistTitles = [
+        "Located in Designated Place",
+        "Readily Visible not obstructed",
+        "Fire extinguisher is in good condition",
+        "Inspect tamper seal and safety pin",
+        "Check pressure gauge",
+        "Check fire extinguisher body for any corrosion/physical damage",
+        "Inspect hose and nozzle for any defects"
+    ];
+
     if (selectedReportId && savedInspections[selectedReportId]) {
         const inspections = savedInspections[selectedReportId];
         reportTable.innerHTML = "";
@@ -31,20 +42,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     <th colspan="6">Checklist</th>
                 </tr>
             `;
+
             inspection.checklist.forEach((item, i) => {
+                const title = checklistTitles[i] || `Checklist Item ${i + 1}`; // Fallback if extra items exist
                 reportTable.innerHTML += `
                     <tr>
-                        <td>Check ${i + 1}</td>
+                        <td>${title}</td>
                         <td>${item.status}</td>
                         <td colspan="4">${item.remarks}</td>
                     </tr>
                 `;
             });
         });
-        
+
     } else {
         reportTable.innerHTML = "<tr><td colspan='6'>No inspections found for this extinguisher.</td></tr>";
     }
+
     document.getElementById("prev-btn").addEventListener("click", () => {
         window.location.href = "dashboard.html";
     });

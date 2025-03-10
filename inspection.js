@@ -9,6 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const extData = JSON.parse(localStorage.getItem("currentExtinguisher")) || {};
     let savedInspections = JSON.parse(localStorage.getItem("inspectionRecords")) || {};
     
+    // Checklist titles (Same as report.js)
+    const checklistTitles = [
+        "Pressure Gauge Reading",
+        "Seal & Tamper Indicators",
+        "Hose Condition",
+        "Nozzle Condition",
+        "Body Condition",
+        "Wall Mount Condition",
+        "Instruction Label Legibility"
+    ];
+
     // Auto-fill inspection data
     const elements = {
         "ext-id": extData.id,
@@ -45,16 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
-    // Function to download inspection as Excel
-    function downloadInspectionAsExcel(inspection) {
+    // Function to generate CSV with checklist titles
+    function downloadInspectionAsCSV(inspection) {
         let csvContent = "data:text/csv;charset=utf-8,";
+
         csvContent += "S.No,Location,Type,Weight,Manufacturing Date,HPT Date,Inspected By,Inspection Date,Inspection Due Date\n";
         csvContent += `${inspection.id},${inspection.location},${inspection.type},${inspection.weight},${inspection.serviceDate},${inspection.hptDate},${inspection.inspectedBy},${inspection.inspectionDate},${inspection.inspectionDueDate}\n`;
         
         csvContent += "\nChecklist:\n";
-        csvContent += "Check No,Status,Remarks\n";
+        csvContent += "Checklist Item,Status,Remarks\n";
+        
         inspection.checklist.forEach((item, index) => {
-            csvContent += `${index + 1},${item.status},${item.remarks}\n`;
+            csvContent += `${checklistTitles[index]},${item.status},${item.remarks}\n`;
         });
 
         const encodedUri = encodeURI(csvContent);
@@ -94,8 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("selectedReportId", extData.id); // Ensure the correct report ID is stored
         alert("Inspection saved successfully!");
 
-        // Download the inspection as an Excel file
-        downloadInspectionAsExcel(newInspection);
+        // Download the inspection as a CSV file
+        downloadInspectionAsCSV(newInspection);
         
         // Redirect back to dashboard where Inspection & Report buttons are available
         window.location.href = "dashboard.html";
