@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("user-name").textContent = userData.email.split("@")[0];
 
-    // QR Scanner Setup
     let qrScanner = null;
     const scanOptions = document.getElementById("scan-options");
 
@@ -85,4 +84,13 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("report-btn").addEventListener("click", () => {
         window.location.href = "report.html";
     });
+
+    document.getElementById("prev-btn").addEventListener("click", () => {
+        window.history.back();
+    });
+
+    document.getElementById("next-btn").addEventListener("click", () => {
+        window.history.forward();
+    });
+
 });

@@ -74,11 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
 
-    if (homeBtn) {
-        homeBtn.addEventListener("click", function() {
-            window.location.href = "dashboard.html";
-        });
-    }
+    
 
     if (prevBtn) {
         prevBtn.addEventListener("click", function() {
