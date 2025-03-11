@@ -86,11 +86,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById("prev-btn").addEventListener("click", () => {
-        window.history.back();
+        window.location.href = "index.html" ;
     });
 
     document.getElementById("next-btn").addEventListener("click", () => {
-        window.history.forward();
+        window.location.href = "report.html" ;
     });
 
 });
